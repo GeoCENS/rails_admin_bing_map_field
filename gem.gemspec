@@ -13,13 +13,13 @@ Gem::Specification.new do |s|
   # s.add_runtime_dependency('rails_admin', '> 0.0.1')
 
 
-  s.name              = "rails_admin_map_field"
+  s.name              = "rails_admin_bing_map_field"
   s.version           = "0.0.1"
   s.platform          = Gem::Platform::RUBY
-  s.authors           = ["Jason Langenauer"]
-  s.email             = ["jason@jasonlangenauer.com"]
-  s.homepage          = "http://github.com/jasonl/"
-  s.summary           = "Adds a map field using the Google Maps API to rails_admin"
+  s.authors           = ["James Badger"]
+  s.email             = ["jamesbadger@gmail.com"]
+  s.homepage          = "http://github.com/GeoCENS/"
+  s.summary           = "Adds a map field using the Bing Maps API to rails_admin"
   s.description       = "A map field for RailsAdmin that can be used to manipulate a latitude/longitude field pair"
   s.rubyforge_project = s.name
 
