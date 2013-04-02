@@ -2,8 +2,7 @@
 
 = javascript_tag do
   :plain
-    function init_map_field(){
-    jQuery(function(){
+    jQuery(function() {
       var pushpin = null;
       var location = new Microsoft.Maps.Location(#{form.object.send(field.name) || field.default_latitude}, #{form.object.send(field.longitude_field) || field.default_longitude});
 
@@ -13,7 +12,7 @@
         credentials: "#{field.bing_api_key}"
       };
 
-      var map = new Microsoft.Maps.Map(document.getElementById("#{field.dom_name}"), mapOptions);
+      var map = new Microsoft.Maps.Map(jQuery("##{field.dom_name}")[0], mapOptions);
 
   - if form.object.send(field.name) && form.object.send(field.longitude_field)
     :plain
@@ -39,7 +38,7 @@
         jQuery("##{field.longitude_dom_name}").val(location.longitude);
       }
 
-    })};
-%div.ramf-map-container{:id => field.dom_name, :style => "width:300px;height:200px"}
+    });
+%div.ramf-map-container{:id => field.dom_name, :style => "width:300px;height:200px;position:relative"}
 = form.send :hidden_field, field.name, :id => field.latitude_dom_name
 = form.send :hidden_field, field.longitude_field, :id => field.longitude_dom_name
