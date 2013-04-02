@@ -7,36 +7,31 @@
       var location = new Microsoft.Maps.Location(#{form.object.send(field.name) || field.default_latitude}, #{form.object.send(field.longitude_field) || field.default_longitude});
 
       var mapOptions = {
-        zoom: #{field.default_zoom_level},
         center: location,
-        credentials: "#{field.bing_api_key}"
+        credentials: "#{field.bing_api_key}",
+        zoom: #{field.default_zoom_level}
       };
 
       var map = new Microsoft.Maps.Map(jQuery("##{field.dom_name}")[0], mapOptions);
 
   - if form.object.send(field.name) && form.object.send(field.longitude_field)
     :plain
-      pushpin = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(#{form.object.send(field.name)},#{form.object.send(field.longitude_field)}));
+      pushpin = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(#{form.object.send(field.name)},#{form.object.send(field.longitude_field)}), { draggable: true });
+      map.entities.push(pushpin);
+  - else
+    :plain
+      pushpin = new Microsoft.Maps.Pushpin(location, { draggable: true });
       map.entities.push(pushpin);
 
   :plain
-      Microsoft.Maps.Events.addHandler(map, 'click', function(e) {
-        var point = new Microsoft.Maps.Point(e.getX(), e.getY());
-        updateLocation(map.tryPixelToLocation(point));
-      });
-
-      function updateLocation(location) {
-        if(pushpin) {
-          pushpin.SetLocation(location);
-        } else {
-          pushpin = new Microsoft.Maps.Pushpin(location);
-          map.entities.push(pushpin);
-        }
-
-        map.setView({ center: location });
-        jQuery("##{field.latitude_dom_name}").val(location.latitude);
-        jQuery("##{field.longitude_dom_name}").val(location.longitude);
+    Microsoft.Maps.Events.addHandler(pushpin, 'mouseup', function(e) {
+      if (e.targetType == 'pushpin') {
+        var pinLocation = e.target.getLocation();
+        map.setView({center: pinLocation});
+        jQuery("##{field.latitude_dom_name}").val(pinLocation.latitude);
+        jQuery("##{field.longitude_dom_name}").val(pinLocation.longitude);
       }
+    });
 
     });
 %div.ramf-map-container{:id => field.dom_name, :style => "width:300px;height:200px;position:relative"}
