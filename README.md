@@ -1,17 +1,17 @@
-Rails Admin Map Field
+Rails Admin Bing Map Field
 =====================
 
-rails_admin_map_field is a gem that works with sferik's **rails_admin** (https://github.com/sferik/rails_admin) to provide an easy to use Google Maps interface for displaying and setting geographic co-ordinates in a model.
+rails_admin_bing_map_field is a gem that works with sferik's **rails_admin** (https://github.com/sferik/rails_admin) to provide an easy to use Bing Maps interface for displaying and setting geographic co-ordinates in a model. It is based on [TradeMobile Ltd's Google Maps Admin Field](https://github.com/trademobile/rails_admin_map_field).
 
-Where a latitude and longitude is set on the model, it is indicated by a marker shown on a Google map centered at the marker. The administrator can change the value of these fields by clicking on the desired new location on the map.
+Where a latitude and longitude is set on the model, it is indicated by a pushpin shown on a Bing map centered at the marker. The administrator can change the value of these fields by clicking on the desired new location on the map.
 
 Usage
 =====
 
-rails_admin_map_field expects that the model will have two attributes, one for latitude and one for longitude of the point represented. To enable rails_admin_map_field, add the following to your `Gemfile`:
+rails_admin_bing_map_field expects that the model will have two attributes, one for latitude and one for longitude of the point represented. To enable rails_admin_bing_map_field, add the following to your `Gemfile`:
 
 ```ruby
-gem "rails_admin_map_field", :git => "git://github.com/jasonl/rails_admin_map_field.git"
+gem "rails_admin_bing_map_field", :git => "git://github.com/GeoCENS/rails_admin_bing_map_field.git"
 ```
 
 Then, add in your `config/initializers/rails_admin.rb` initializer:
@@ -34,7 +34,7 @@ Configuration
 For different configurations, rails_admin_map_field can be configured with the following:
 
 - `longitude_field` - the name of the longitude field that forms the the co-ordinate with the latitude field specified. Defaults to "longitude"
-- `google_api_key` - if you use a Google Maps API Key, it can be specified here.
+- `bing_api_key` - the Bing Maps API key for your application.
 - `default_latitude` - the latitude to center the map shown on if the latitude field is blank. Defaults to 51.5, the latitude of London, UK.
 - `default_longitude` - the longitude used if the longitude field is blank. Defaults to -0.126, the longitude of London, UK.
 
@@ -46,7 +46,7 @@ RailsAdmin.config do |config|
     edit do
       field :lat, :map do
         longitude_field :lon
-        google_api_key "a1b2c3d4e5f6deadbeef"
+        bing_api_key "a1b2c3d4e5f6deadbeef"
         default_latitude -34.0  # Sydney, Australia
         default_longitude 151.0
       end
@@ -57,9 +57,9 @@ end
 
 LICENSE
 =======
-rails_admin_map_field is licensed under the MIT license.
+rails_admin_bing_map_field is licensed under the MIT license.
 
-Copyright (C) 2011 by Jason Langenauer
+Copyright (C) 2013 by James Badger
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
