@@ -28,15 +28,29 @@
       map.entities.push(pushpin);
 
   :plain
-    Microsoft.Maps.Events.addHandler(pushpin, 'mouseup', function(e) {
-      if (e.targetType == 'pushpin') {
-        var pinLocation = e.target.getLocation();
-        map.setView({center: pinLocation});
-        jQuery("##{field.latitude_dom_name}").val(pinLocation.latitude);
-        jQuery("##{field.longitude_dom_name}").val(pinLocation.longitude);
-      }
-    });
+      Microsoft.Maps.Events.addHandler(pushpin, 'mouseup', function(e) {
+        if (e.targetType == 'pushpin') {
+          var pinLocation = e.target.getLocation();
+          map.setView({center: pinLocation});
+          jQuery("##{field.latitude_dom_name}").val(pinLocation.latitude);
+          jQuery("##{field.longitude_dom_name}").val(pinLocation.longitude);
+        }
+      });
 
+      var updateMap = function() {
+        console.log("howdy");
+        var latitude = jQuery("##{field.latitude_dom_name}").val();
+        var longitude = jQuery("##{field.longitude_dom_name}").val();
+        var newLocation = new Microsoft.Maps.Location(latitude, longitude)
+        pushpin.setLocation(newLocation);
+        map.setView({center: newLocation});
+      };
+
+      var fieldTimeout;
+      jQuery("##{field.latitude_dom_name}, ##{field.longitude_dom_name}").on("keyup", function(e) {
+        clearTimeout(fieldTimeout);
+        fieldTimeout = setTimeout(updateMap, 600);
+      });
     });
 %div.ramf-map-container{:id => field.dom_name, :style => "width:300px;height:200px;position:relative"}
 
