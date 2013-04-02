@@ -16,8 +16,8 @@ module RailsAdmin::Config::Fields::Types
       :form_map
     end
 
-    # Google Maps API Key - optional
-    register_instance_option(:google_api_key) do
+    # Bing Maps API Key
+    register_instance_option(:bing_api_key) do
       nil
     end
 
